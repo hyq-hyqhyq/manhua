@@ -18,8 +18,8 @@ class OpenAIProvider(LLMProvider):
     def __init__(self) -> None:
         self.client = OpenAICompatibleTextClient(
             provider_name=self.provider_name,
-            api_key=settings.openai_api_key,
-            base_url=settings.openai_base_url,
+            api_key=settings.openai_text_api_key,
+            base_url=settings.openai_text_base_url,
             model=settings.openai_text_model,
             timeout_seconds=settings.request_timeout_seconds,
         )

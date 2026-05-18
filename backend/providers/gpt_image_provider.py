@@ -1,6 +1,7 @@
 import base64
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import httpx
 
@@ -13,10 +14,15 @@ class GPTImageProvider(ImageProvider):
     provider_name = "gpt_image"
 
     def __init__(self) -> None:
-        self.api_key = settings.openai_api_key
-        self.base_url = settings.openai_base_url.rstrip("/")
+        self.api_key = settings.openai_image_api_key
+        self.base_url = (
+            settings.openai_image_base_url or settings.openai_base_url
+        ).rstrip("/")
+        self.image_base_url = settings.openai_image_base_url.rstrip("/")
         self.model = settings.openai_image_model
         self.endpoint = settings.openai_image_endpoint.rstrip("/")
+        self.edits_endpoint = settings.openai_image_edits_endpoint.rstrip("/")
+        self.generations_endpoint = settings.openai_image_generations_endpoint.rstrip("/")
         self.timeout_seconds = settings.request_timeout_seconds
 
     def generate_anchor_image(
@@ -87,9 +93,9 @@ class GPTImageProvider(ImageProvider):
     def _ensure_configured(self) -> None:
         missing = []
         if not self.api_key:
-            missing.append("OPENAI_API_KEY")
-        if not (self.base_url or self.endpoint):
-            missing.append("OPENAI_BASE_URL")
+            missing.append("OPENAI_IMAGE_API_KEY")
+        if not (self.base_url or self.image_base_url or self.endpoint):
+            missing.append("OPENAI_BASE_URL or OPENAI_IMAGE_BASE_URL")
         if not self.model:
             missing.append("OPENAI_IMAGE_MODEL")
         if missing:
@@ -98,13 +104,55 @@ class GPTImageProvider(ImageProvider):
             )
 
     def _image_url(self, operation: str) -> str:
-        if self.endpoint:
-            if self.endpoint.endswith(operation):
-                return self.endpoint
-            return f"{self.endpoint.rstrip('/')}/{operation}"
-        if self.base_url.endswith("/v1"):
-            return f"{self.base_url}/images/{operation}"
-        return f"{self.base_url}/v1/images/{operation}"
+        endpoint = self._operation_endpoint(operation)
+        if endpoint:
+            return self._absolute_url(endpoint)
+
+        base_url = self.image_base_url or self._derive_image_base_url()
+        if not base_url:
+            raise ProviderUnavailableError("Image base URL is not configured")
+
+        base_url = self._absolute_url(base_url)
+        if base_url.endswith(f"/images/{operation}"):
+            return base_url
+        if base_url.endswith("/images"):
+            return f"{base_url}/{operation}"
+        if base_url.endswith("/v1"):
+            return f"{base_url}/images/{operation}"
+        return f"{base_url}/v1/images/{operation}"
+
+    def _operation_endpoint(self, operation: str) -> str:
+        if operation == "edits" and self.edits_endpoint:
+            return self.edits_endpoint
+        if operation == "generations" and self.generations_endpoint:
+            return self.generations_endpoint
+        if self.endpoint and self.endpoint.endswith(operation):
+            return self.endpoint
+        return ""
+
+    def _derive_image_base_url(self) -> str:
+        for candidate in (self.endpoint, self.base_url):
+            if not candidate:
+                continue
+            if "/v1/" in candidate:
+                return candidate.split("/v1/", 1)[0].rstrip("/") + "/v1"
+            if candidate.endswith("/v1"):
+                return candidate
+        return self.base_url
+
+    def _absolute_url(self, url: str) -> str:
+        if url.startswith("http://") or url.startswith("https://"):
+            return url.rstrip("/")
+        if not url.startswith("/"):
+            return url.rstrip("/")
+
+        base = self.image_base_url or self._derive_image_base_url()
+        parsed = urlparse(base)
+        if not parsed.scheme or not parsed.netloc:
+            raise ProviderUnavailableError(
+                f"Relative image endpoint {url} requires OPENAI_IMAGE_BASE_URL or OPENAI_BASE_URL with host"
+            )
+        return f"{parsed.scheme}://{parsed.netloc}{url}".rstrip("/")
 
     def _post_json(self, url: str, payload: dict[str, Any]) -> dict:
         headers = {

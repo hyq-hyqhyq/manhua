@@ -84,21 +84,35 @@ def check_imports(label: str, modules: list[str]) -> int:
 
 def check_project_imports() -> int:
     failures = 0
-    sys.path.insert(0, str(BACKEND))
-    sys.path.insert(0, str(SAM3_SERVICE))
-
     for label, module in [
-        ("backend app", "main"),
-        ("comic pipeline", "pipeline.comic_pipeline"),
-        ("sam3 service app", "app"),
+        ("backend app", "main", BACKEND),
+        ("comic pipeline", "pipeline.comic_pipeline", BACKEND),
+        ("sam3 service app", "app", SAM3_SERVICE),
     ]:
         try:
-            importlib.import_module(module)
+            import_project_module(module, path)
             print(f"[OK] {label}: import {module}")
         except Exception as error:
             failures += 1
             print(f"[FAIL] {label}: import {module} -> {error}")
     return failures
+
+
+def import_project_module(module: str, path: Path):
+    old_path = sys.path[:]
+    old_modules = {
+        name: sys.modules.pop(name)
+        for name in ["config", "main", "app"]
+        if name in sys.modules
+    }
+    try:
+        sys.path.insert(0, str(path))
+        return importlib.import_module(module)
+    finally:
+        sys.path[:] = old_path
+        for name in ["config", "main", "app"]:
+            sys.modules.pop(name, None)
+        sys.modules.update(old_modules)
 
 
 def check_env_file() -> int:
@@ -113,8 +127,9 @@ def check_env_file() -> int:
         "USE_MOCK_PROVIDERS",
         "QWEN_BASE_URL",
         "QWEN_MODEL",
-        "OPENAI_BASE_URL",
+        "OPENAI_TEXT_BASE_URL",
         "OPENAI_TEXT_MODEL",
+        "OPENAI_IMAGE_BASE_URL",
         "OPENAI_IMAGE_MODEL",
         "SAM3_ENDPOINT",
     ]:

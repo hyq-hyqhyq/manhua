@@ -43,8 +43,22 @@ class Settings:
     qwen_model: str = os.getenv("QWEN_MODEL", "")
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
     openai_base_url: str = os.getenv("OPENAI_BASE_URL", "")
+    openai_text_api_key: str = os.getenv(
+        "OPENAI_TEXT_API_KEY", os.getenv("OPENAI_API_KEY", "")
+    )
+    openai_text_base_url: str = os.getenv(
+        "OPENAI_TEXT_BASE_URL", os.getenv("OPENAI_BASE_URL", "")
+    )
     openai_text_model: str = os.getenv("OPENAI_TEXT_MODEL", "")
+    openai_image_api_key: str = os.getenv(
+        "OPENAI_IMAGE_API_KEY", os.getenv("OPENAI_API_KEY", "")
+    )
     openai_image_model: str = os.getenv("OPENAI_IMAGE_MODEL", "")
+    openai_image_base_url: str = os.getenv("OPENAI_IMAGE_BASE_URL", "")
+    openai_image_edits_endpoint: str = os.getenv("OPENAI_IMAGE_EDITS_ENDPOINT", "")
+    openai_image_generations_endpoint: str = os.getenv(
+        "OPENAI_IMAGE_GENERATIONS_ENDPOINT", ""
+    )
     openai_image_endpoint: str = os.getenv("OPENAI_IMAGE_ENDPOINT", "")
     sam3_endpoint: str = os.getenv("SAM3_ENDPOINT", "")
     cors_origins: tuple[str, ...] = tuple(
