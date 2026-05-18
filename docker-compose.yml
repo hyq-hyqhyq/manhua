@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      USE_MOCK_PROVIDERS: ${USE_MOCK_PROVIDERS:-true}
+      QWEN_API_KEY: ${QWEN_API_KEY:-}
+      QWEN_BASE_URL: ${QWEN_BASE_URL:-}
+      QWEN_MODEL: ${QWEN_MODEL:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-}
+      OPENAI_TEXT_MODEL: ${OPENAI_TEXT_MODEL:-}
+      OPENAI_IMAGE_MODEL: ${OPENAI_IMAGE_MODEL:-}
+      OPENAI_IMAGE_ENDPOINT: ${OPENAI_IMAGE_ENDPOINT:-}
+      SAM3_ENDPOINT: ${SAM3_ENDPOINT:-}
+      OUTPUT_DIR: outputs
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/outputs:/app/outputs
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+    environment:
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
