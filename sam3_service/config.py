@@ -40,6 +40,8 @@ class Settings:
     prompt_mode: str = os.getenv("SAM3_PROMPT_MODE", "combined")
     score_threshold: float = env_float("SAM3_SCORE_THRESHOLD", 0.15)
     max_prompt_chars: int = int(os.getenv("SAM3_MAX_PROMPT_CHARS", "120"))
+    no_mask_fallback: str = os.getenv("SAM3_NO_MASK_FALLBACK", "foreground")
+    foreground_threshold: int = int(os.getenv("SAM3_FOREGROUND_THRESHOLD", "245"))
     compile_model: bool = env_bool("SAM3_COMPILE", False)
     allow_sam3_fallback: bool = env_bool("SAM3_ALLOW_SAM3_FALLBACK", False)
     alpha_blur_radius: float = env_float("SAM3_ALPHA_BLUR_RADIUS", 0.0)

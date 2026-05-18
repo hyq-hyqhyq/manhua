@@ -38,14 +38,28 @@ class SAM31Runner:
     ) -> bytes:
         self._ensure_loaded()
         image = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
-        prompt_text = self._build_prompt(entity_id, description, prompt)
+        prompt_candidates = self._build_prompt_candidates(entity_id, description, prompt)
         threshold = settings.score_threshold if score_threshold is None else score_threshold
 
-        with torch.inference_mode(), self._autocast_context():
-            state = self._processor.set_image(image.convert("RGB"))
-            output = self._processor.set_text_prompt(state=state, prompt=prompt_text)
+        last_error: Exception | None = None
+        for prompt_text in prompt_candidates:
+            try:
+                with torch.inference_mode(), self._autocast_context():
+                    state = self._processor.set_image(image.convert("RGB"))
+                    output = self._processor.set_text_prompt(state=state, prompt=prompt_text)
+                mask = self._select_mask(output, threshold)
+                cutout = self._apply_mask(image, mask)
+                buffer = io.BytesIO()
+                cutout.save(buffer, format="PNG")
+                return buffer.getvalue()
+            except ValueError as error:
+                last_error = error
 
-        mask = self._select_mask(output, threshold)
+        if settings.no_mask_fallback == "foreground":
+            mask = self._foreground_mask(image)
+        else:
+            raise last_error or ValueError("SAM3 returned no masks")
+
         cutout = self._apply_mask(image, mask)
         buffer = io.BytesIO()
         cutout.save(buffer, format="PNG")
@@ -116,6 +130,36 @@ class SAM31Runner:
         text = " ".join(text.split())
         return text[: settings.max_prompt_chars]
 
+    def _build_prompt_candidates(
+        self,
+        entity_id: str,
+        description: str,
+        explicit_prompt: str | None,
+    ) -> list[str]:
+        candidates = [self._build_prompt(entity_id, description, explicit_prompt)]
+        lowered = f"{entity_id} {description}".lower()
+        aliases = {
+            "boy": ["boy", "person", "child", "character"],
+            "girl": ["girl", "person", "child", "character"],
+            "man": ["man", "person", "character"],
+            "woman": ["woman", "person", "character"],
+            "hero": ["person", "character"],
+            "cat": ["cat", "animal"],
+            "dog": ["dog", "animal"],
+            "robot": ["robot", "object", "character"],
+        }
+        for key, values in aliases.items():
+            if key in lowered:
+                candidates.extend(values)
+        candidates.extend([entity_id, description])
+
+        unique = []
+        for candidate in candidates:
+            candidate = " ".join(str(candidate).split())[: settings.max_prompt_chars]
+            if candidate and candidate not in unique:
+                unique.append(candidate)
+        return unique
+
     def _select_mask(self, output: dict, score_threshold: float) -> np.ndarray:
         masks = output.get("masks")
         scores = output.get("scores")
@@ -157,6 +201,24 @@ class SAM31Runner:
         output = image.copy()
         output.putalpha(alpha)
         return output
+
+    def _foreground_mask(self, image: Image.Image) -> np.ndarray:
+        rgb = np.asarray(image.convert("RGB")).astype(np.int16)
+        corners = np.array(
+            [
+                rgb[0, 0],
+                rgb[0, -1],
+                rgb[-1, 0],
+                rgb[-1, -1],
+            ]
+        )
+        background = np.median(corners, axis=0)
+        distance = np.abs(rgb - background).sum(axis=2)
+        non_white = np.min(rgb, axis=2) < settings.foreground_threshold
+        mask = ((distance > 32) & non_white).astype(np.uint8) * 255
+        if mask.max() == 0:
+            raise ValueError("SAM3 returned no masks and foreground fallback found no object")
+        return mask
 
     def _to_numpy(self, value) -> np.ndarray:
         if value is None:
