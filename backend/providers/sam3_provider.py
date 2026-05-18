@@ -48,7 +48,10 @@ class SAM3Provider(SegmentProvider):
                 files=files,
                 timeout=self.timeout_seconds,
             )
-            response.raise_for_status()
+            if response.status_code >= 400:
+                raise ProviderError(
+                    f"SAM3 service returned {response.status_code}: {response.text[:1000]}"
+                )
             self._write_segmentation_response(response, output_path)
         except Exception as error:
             raise ProviderError(f"SAM3 segmentation failed for {entity_id}: {error}") from error

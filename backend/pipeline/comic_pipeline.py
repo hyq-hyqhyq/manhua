@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from config import settings
-from pipeline.prompt_builder import build_panel_prompt
+from pipeline.prompt_builder import panel_image_prompt
 from pipeline.reference_selector import select_references
 from pipeline.validators import (
     refs_from_selected_ids,
@@ -227,10 +227,15 @@ class ComicPipeline:
             entity["entity_id"]: entity
             for entity in storyboard["entities"]
         }
-        panel_prompt = build_panel_prompt(
+        entities_used = [
+            entities_by_id[entity_id]
+            for entity_id in panel["entities_used"]
+            if entity_id in entities_by_id
+        ]
+        panel_prompt = panel_image_prompt(
             panel,
             self._style_prompt(storyboard["style"]),
-            entities_by_id,
+            entities_used,
         )
         self._generate_panel_image(comic_id, panel_prompt, refsheet_path, panel_path)
 

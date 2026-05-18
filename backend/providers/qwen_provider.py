@@ -1,14 +1,14 @@
 from __future__ import annotations
 
 from config import settings
-from providers.llm_base import LLMProvider
-from providers.llm_prompts import (
+from pipeline.prompt_builder import (
     JSON_SYSTEM_PROMPT,
     ref_note_prompt,
     reference_selection_prompt,
     revision_prompt,
     storyboard_prompt,
 )
+from providers.llm_base import LLMProvider
 from providers.text_client import OpenAICompatibleTextClient
 
 

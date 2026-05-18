@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 import re
 
@@ -118,6 +119,10 @@ def _panel_id_from_path(path: Path) -> int:
 
 
 def _extract_current_panel(panel_prompt: str) -> str:
+    payload = _extract_panel_input(panel_prompt)
+    if payload:
+        return str(payload.get("panel_summary") or "")[:360]
+
     marker = "Current panel:"
     if marker not in panel_prompt:
         return panel_prompt[:180]
@@ -127,6 +132,14 @@ def _extract_current_panel(panel_prompt: str) -> str:
 
 
 def _extract_entities(panel_prompt: str) -> list[str]:
+    payload = _extract_panel_input(panel_prompt)
+    if payload:
+        entities = []
+        for entity in payload.get("entities_used", []):
+            if isinstance(entity, dict) and entity.get("entity_id"):
+                entities.append(str(entity["entity_id"]))
+        return entities or ["entity"]
+
     marker = "Entities in this panel:"
     if marker not in panel_prompt:
         return ["entity"]
@@ -137,3 +150,14 @@ def _extract_entities(panel_prompt: str) -> list[str]:
         if ":" in cleaned:
             entities.append(cleaned.split(":", 1)[0].strip())
     return entities or ["entity"]
+
+
+def _extract_panel_input(panel_prompt: str) -> dict | None:
+    marker = "Panel input:"
+    if marker not in panel_prompt:
+        return None
+    after = panel_prompt.split(marker, 1)[1].split("Requirements:", 1)[0].strip()
+    try:
+        return json.loads(after)
+    except json.JSONDecodeError:
+        return None

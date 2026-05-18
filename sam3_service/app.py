@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import traceback
+
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.responses import Response
 
@@ -40,6 +42,7 @@ async def segment(
         )
         return Response(content=output, media_type="image/png")
     except Exception as error:
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(error)) from error
 
 

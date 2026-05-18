@@ -6,6 +6,10 @@ import re
 def validate_storyboard(storyboard: dict, layout: str, style: str, panel_count: int) -> dict:
     if not isinstance(storyboard, dict):
         raise ValueError("Storyboard must be a JSON object")
+    if storyboard.get("style") != style:
+        raise ValueError(f"Storyboard style must be {style}")
+    if storyboard.get("layout") != layout:
+        raise ValueError(f"Storyboard layout must be {layout}")
 
     raw_entities = storyboard.get("entities")
     raw_panels = storyboard.get("panels")
@@ -34,6 +38,8 @@ def validate_storyboard(storyboard: dict, layout: str, style: str, panel_count: 
     for expected_panel_id, panel in enumerate(raw_panels, start=1):
         if not isinstance(panel, dict):
             raise ValueError("Each panel must be an object")
+        if int(panel.get("panel_id", 0)) != expected_panel_id:
+            raise ValueError("Panel ids must start at 1 and increment by 1")
         raw_entities_used = panel.get("entities_used")
         if not isinstance(raw_entities_used, list):
             raise ValueError("Panel entities_used must be a list")
@@ -64,6 +70,11 @@ def validate_storyboard(storyboard: dict, layout: str, style: str, panel_count: 
 def validate_reference_selection(selection: dict, panel: dict, entity_pool: dict) -> dict[str, list[str]]:
     if not isinstance(selection, dict) or not isinstance(selection.get("selected_refs"), dict):
         raise ValueError("Reference selection must contain selected_refs")
+
+    allowed_entities = set(panel["entities_used"])
+    selected_entities = set(selection["selected_refs"].keys())
+    if selected_entities - allowed_entities:
+        raise ValueError("Reference selection included entities not used in the panel")
 
     result: dict[str, list[str]] = {}
     for entity_id in panel["entities_used"]:
@@ -115,6 +126,10 @@ def validate_revision_plan(
 ) -> dict:
     if not isinstance(revision_plan, dict):
         raise ValueError("Revision plan must be an object")
+    if revision_plan.get("revision_type") not in {"global", "panel"}:
+        raise ValueError("Revision type must be global or panel")
+    if revision_plan.get("revision_type") != revision_type:
+        raise ValueError(f"Revision type must be {revision_type}")
 
     valid_panel_ids = {panel["panel_id"] for panel in storyboard["panels"]}
     raw_affected = revision_plan.get("affected_panels")
