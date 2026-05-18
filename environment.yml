@@ -1,0 +1,20 @@
+name: manhua
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - nodejs=20
+  - git
+  - curl
+  - pip:
+      - fastapi==0.115.6
+      - uvicorn[standard]==0.32.1
+      - python-multipart==0.0.19
+      - python-dotenv==1.0.1
+      - pillow==11.0.0
+      - pydantic==2.10.3
+      - httpx==0.28.1
+      - numpy==2.1.3
+      - huggingface_hub==0.34.4

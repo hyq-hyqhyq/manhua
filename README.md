@@ -7,7 +7,7 @@ Phase one runs fully in mock mode. Phase two adds configurable real providers wh
 - Qwen for lightweight text planning.
 - OpenAI-compatible text provider as fallback.
 - GPT Image for anchor and panel image generation.
-- SAM3 endpoint for entity segmentation.
+- SAM 3.1 endpoint for entity segmentation.
 - Mock providers remain available through `USE_MOCK_PROVIDERS=true`.
 
 ## Structure
@@ -20,10 +20,17 @@ Phase one runs fully in mock mode. Phase two adds configurable real providers wh
 
 ```bash
 cd comic_project/backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+conda env create -f ../environment.yml
+conda activate manhua
 uvicorn main:app --reload --port 8000
+```
+
+If the environment already exists:
+
+```bash
+cd comic_project
+conda env update -f environment.yml --prune
+conda activate manhua
 ```
 
 Main endpoints:
@@ -64,6 +71,7 @@ docker compose up --build
 To enable real providers:
 
 ```bash
+cp .env.example .env
 export USE_MOCK_PROVIDERS=false
 export QWEN_API_KEY=...
 export QWEN_BASE_URL=...
@@ -72,10 +80,22 @@ export OPENAI_API_KEY=...
 export OPENAI_BASE_URL=...
 export OPENAI_TEXT_MODEL=...
 export OPENAI_IMAGE_MODEL=...
-export SAM3_ENDPOINT=https://your-sam3-endpoint.example/segment
+export SAM3_ENDPOINT=http://127.0.0.1:8100/segment
 ```
 
 If Qwen fails, the backend tries OpenAI text, then mock text. If SAM3 fails, it falls back to mock segmentation and records a warning. If GPT Image fails, it falls back to mock images only when `ALLOW_MOCK_IMAGE_FALLBACK=true`; otherwise the API returns a clear error.
+
+SAM 3.1 runs as a separate service in `sam3_service/`. On the server:
+
+```bash
+cp .env.example .env
+cd comic_project/sam3_service
+conda activate manhua
+pip install "torch>=2.7" "torchvision>=0.22" --index-url https://download.pytorch.org/whl/cu126
+pip install --upgrade "git+https://github.com/facebookresearch/sam3.git"
+huggingface-cli login
+uvicorn app:app --host 0.0.0.0 --port 8100
+```
 
 ## Workflow
 
