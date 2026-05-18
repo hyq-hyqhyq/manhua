@@ -60,6 +60,9 @@ class Settings:
         "OPENAI_IMAGE_GENERATIONS_ENDPOINT", ""
     )
     openai_image_endpoint: str = os.getenv("OPENAI_IMAGE_ENDPOINT", "")
+    openai_image_timeout_seconds: float = float(
+        os.getenv("OPENAI_IMAGE_TIMEOUT_SECONDS", "600")
+    )
     sam3_endpoint: str = os.getenv("SAM3_ENDPOINT", "")
     cors_origins: tuple[str, ...] = tuple(
         origin.strip()

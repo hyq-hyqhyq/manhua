@@ -23,7 +23,7 @@ class GPTImageProvider(ImageProvider):
         self.endpoint = settings.openai_image_endpoint.rstrip("/")
         self.edits_endpoint = settings.openai_image_edits_endpoint.rstrip("/")
         self.generations_endpoint = settings.openai_image_generations_endpoint.rstrip("/")
-        self.timeout_seconds = settings.request_timeout_seconds
+        self.timeout_seconds = settings.openai_image_timeout_seconds
 
     def generate_anchor_image(
         self,
