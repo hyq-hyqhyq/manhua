@@ -32,10 +32,30 @@ export type StoryboardEntity = {
   description: string;
 };
 
+export type PanelTextType = "speech" | "thought" | "caption" | "sfx";
+
+export type PanelTextPosition =
+  | "top_left"
+  | "top_center"
+  | "top_right"
+  | "middle_left"
+  | "middle_right"
+  | "bottom_left"
+  | "bottom_center"
+  | "bottom_right";
+
+export type PanelTextItem = {
+  type: PanelTextType;
+  speaker: string | null;
+  content: string;
+  position: PanelTextPosition;
+};
+
 export type StoryboardPanel = {
   panel_id: number;
   summary: string;
   entities_used: string[];
+  text: PanelTextItem[];
 };
 
 export type Storyboard = {
@@ -49,6 +69,7 @@ export type Panel = {
   panel_id: number;
   image_path: string;
   summary: string;
+  text: PanelTextItem[];
   reference_sheet_path: string;
 };
 
@@ -80,10 +101,11 @@ export type ComicResult = {
 export type RevisionPlan = {
   revision_type: "global" | "panel";
   affected_panels: number[];
-  regenerate_mode: "affected_panels" | "selected_only";
+  regenerate_mode: "affected_panels" | "selected_only" | "from_panel_k";
   panel_revisions: {
     panel_id: number;
     new_summary: string;
+    new_text: PanelTextItem[];
   }[];
 };
 

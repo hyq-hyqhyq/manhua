@@ -62,6 +62,13 @@ def revise_global(comic_id: str, request: RevisionRequest) -> dict:
 @router.post("/{comic_id}/revise-panel", response_model=RevisionResponse)
 def revise_panel(comic_id: str, request: PanelRevisionRequest) -> dict:
     try:
-        return pipeline.revise_panel(comic_id, request.panel_id, request.feedback)
+        text = [item.model_dump() for item in request.text] if request.text is not None else None
+        return pipeline.revise_panel(
+            comic_id,
+            request.panel_id,
+            request.feedback,
+            request.summary,
+            text,
+        )
     except Exception as error:
         raise _as_http_error(error) from error

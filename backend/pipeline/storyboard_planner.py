@@ -97,10 +97,42 @@ class MockStoryboardPlanner:
                     "panel_id": index + 1,
                     "summary": beats[index] if index < len(beats) else beats[-1],
                     "entities_used": used,
+                    "text": self._mock_text(index, panel_count, used),
                 }
             )
 
         return panels
+
+    def _mock_text(self, index: int, panel_count: int, entities_used: list[str]) -> list[dict]:
+        if index == 0:
+            return [
+                {
+                    "type": "caption",
+                    "speaker": None,
+                    "content": "雨夜开始。",
+                    "position": "top_left",
+                }
+            ]
+        if index == panel_count - 1:
+            speaker = entities_used[-1] if entities_used else None
+            return [
+                {
+                    "type": "speech",
+                    "speaker": speaker,
+                    "content": "就是现在。",
+                    "position": "top_right",
+                }
+            ]
+        if index % 2 == 0:
+            return [
+                {
+                    "type": "sfx",
+                    "speaker": None,
+                    "content": "沙沙",
+                    "position": "middle_right",
+                }
+            ]
+        return []
 
     def _shorten(self, text: str, limit: int) -> str:
         collapsed = " ".join(text.split())

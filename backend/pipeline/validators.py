@@ -3,6 +3,19 @@ from __future__ import annotations
 import re
 
 
+TEXT_TYPES = {"speech", "thought", "caption", "sfx"}
+TEXT_POSITIONS = {
+    "top_left",
+    "top_center",
+    "top_right",
+    "middle_left",
+    "middle_right",
+    "bottom_left",
+    "bottom_center",
+    "bottom_right",
+}
+
+
 def validate_storyboard(storyboard: dict, layout: str, style: str, panel_count: int) -> dict:
     if not isinstance(storyboard, dict):
         raise ValueError("Storyboard must be a JSON object")
@@ -56,6 +69,7 @@ def validate_storyboard(storyboard: dict, layout: str, style: str, panel_count: 
                 "panel_id": expected_panel_id,
                 "summary": str(panel.get("summary") or f"Panel {expected_panel_id}"),
                 "entities_used": entities_used,
+                "text": validate_panel_text(panel.get("text", []), valid_ids),
             }
         )
 
@@ -162,15 +176,24 @@ def validate_revision_plan(
         if isinstance(item, dict) and item.get("panel_id") is not None
     }
     for current_id in affected:
+        original = next(panel for panel in storyboard["panels"] if panel["panel_id"] == current_id)
         item = revisions_by_id.get(current_id)
         if not item:
-            original = next(panel for panel in storyboard["panels"] if panel["panel_id"] == current_id)
             new_summary = original["summary"]
+            raw_new_text = original.get("text", [])
         else:
             new_summary = str(item.get("new_summary") or "")
+            raw_new_text = item.get("new_text", original.get("text", []))
         if not new_summary:
             raise ValueError(f"Missing new_summary for panel {current_id}")
-        panel_revisions.append({"panel_id": current_id, "new_summary": new_summary})
+        valid_ids = {entity["entity_id"] for entity in storyboard.get("entities", [])}
+        panel_revisions.append(
+            {
+                "panel_id": current_id,
+                "new_summary": new_summary,
+                "new_text": validate_panel_text(raw_new_text, valid_ids),
+            }
+        )
 
     return {
         "revision_type": revision_type,
@@ -194,3 +217,45 @@ def _normalize_entity_id(raw_id: str) -> str:
     normalized = re.sub(r"[^a-zA-Z0-9_]+", "_", raw_id.strip().lower())
     normalized = re.sub(r"_+", "_", normalized).strip("_")
     return normalized[:32]
+
+
+def validate_panel_text(raw_text, valid_entity_ids: set[str]) -> list[dict[str, str | None]]:
+    if not isinstance(raw_text, list):
+        return []
+
+    text_items: list[dict[str, str | None]] = []
+    for item in raw_text:
+        if not isinstance(item, dict):
+            continue
+
+        text_type = str(item.get("type") or "").strip().lower()
+        if text_type not in TEXT_TYPES:
+            continue
+
+        content = " ".join(str(item.get("content") or "").split())
+        if not content:
+            continue
+
+        position = str(item.get("position") or "").strip().lower()
+        if position not in TEXT_POSITIONS:
+            position = "top_left"
+
+        speaker = item.get("speaker")
+        if speaker is not None:
+            speaker = str(speaker).strip()
+            if speaker not in valid_entity_ids:
+                speaker = None
+
+        text_items.append(
+            {
+                "type": text_type,
+                "speaker": speaker,
+                "content": content,
+                "position": position,
+            }
+        )
+
+        if len(text_items) >= 2:
+            break
+
+    return text_items

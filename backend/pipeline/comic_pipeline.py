@@ -7,6 +7,7 @@ from pipeline.prompt_builder import panel_image_prompt
 from pipeline.reference_selector import select_references
 from pipeline.validators import (
     refs_from_selected_ids,
+    validate_panel_text,
     validate_reference_selection,
     validate_revision_plan,
     validate_storyboard,
@@ -90,6 +91,7 @@ class ComicPipeline:
                         comic_dir / "panels" / f"panel_{panel_id}.png"
                     ),
                     "summary": panel["summary"],
+                    "text": panel.get("text", []),
                     "reference_sheet_path": self.store.to_public_path(
                         comic_dir / "reference_sheets" / f"panel_{panel_id}_refsheet.png"
                     ),
@@ -114,11 +116,21 @@ class ComicPipeline:
         revision_plan = self._plan_revision(comic_id, storyboard, feedback, "global")
         return self._apply_revision(comic_id, comic_dir, storyboard, entity_pool, revision_plan)
 
-    def revise_panel(self, comic_id: str, panel_id: int, feedback: str) -> dict:
+    def revise_panel(
+        self,
+        comic_id: str,
+        panel_id: int,
+        feedback: str,
+        summary: str | None = None,
+        text: list[dict] | None = None,
+    ) -> dict:
         comic_dir = self.store.require_comic_dir(comic_id)
         storyboard = self.store.load_json(comic_dir / "storyboard.json")
         entity_pool = self.store.load_json(comic_dir / "entity_pool.json")
-        revision_plan = self._plan_revision(comic_id, storyboard, feedback, "panel", panel_id)
+        if summary is not None or text is not None:
+            revision_plan = self._direct_panel_revision(storyboard, panel_id, summary, text)
+        else:
+            revision_plan = self._plan_revision(comic_id, storyboard, feedback, "panel", panel_id)
         return self._apply_revision(comic_id, comic_dir, storyboard, entity_pool, revision_plan)
 
     def _generate_storyboard(
@@ -461,7 +473,7 @@ class ComicPipeline:
         revision_plan: dict,
     ) -> dict:
         revisions_by_panel = {
-            item["panel_id"]: item["new_summary"]
+            item["panel_id"]: item
             for item in revision_plan["panel_revisions"]
         }
         total_panels = len(storyboard["panels"])
@@ -479,7 +491,9 @@ class ComicPipeline:
                 panel_id = panel["panel_id"]
                 if panel_id not in revisions_by_panel:
                     continue
-                panel["summary"] = revisions_by_panel[panel_id]
+                revision = revisions_by_panel[panel_id]
+                panel["summary"] = revision["new_summary"]
+                panel["text"] = revision.get("new_text", panel.get("text", []))
                 self._write_status(
                     comic_id,
                     "running",
@@ -503,6 +517,39 @@ class ComicPipeline:
         except Exception as error:
             self._write_status(comic_id, "failed", 0, total_panels, str(error))
             raise
+
+    def _direct_panel_revision(
+        self,
+        storyboard: dict,
+        panel_id: int,
+        summary: str | None,
+        text: list[dict] | None,
+    ) -> dict:
+        panel = next(
+            (item for item in storyboard["panels"] if item["panel_id"] == panel_id),
+            None,
+        )
+        if panel is None:
+            raise ValueError(f"Panel not found: {panel_id}")
+
+        valid_ids = {entity["entity_id"] for entity in storyboard.get("entities", [])}
+        new_summary = " ".join((summary if summary is not None else panel["summary"]).split())
+        if not new_summary:
+            new_summary = panel["summary"]
+        raw_text = text if text is not None else panel.get("text", [])
+
+        return {
+            "revision_type": "panel",
+            "affected_panels": [panel_id],
+            "regenerate_mode": "selected_only",
+            "panel_revisions": [
+                {
+                    "panel_id": panel_id,
+                    "new_summary": new_summary,
+                    "new_text": validate_panel_text(raw_text, valid_ids),
+                }
+            ],
+        }
 
     def _stitch_comic(self, comic_dir: Path, storyboard: dict) -> None:
         panel_paths = [

@@ -3,6 +3,7 @@ import type {
   ComicCreateResponse,
   ComicResult,
   ComicStatus,
+  PanelTextItem,
   RevisionResponse
 } from "./types";
 
@@ -75,10 +76,12 @@ export function reviseComicGlobal(
 export function reviseComicPanel(
   comicId: string,
   panelId: number,
-  feedback: string
+  feedback: string,
+  summary?: string,
+  text?: PanelTextItem[]
 ): Promise<RevisionResponse> {
   return request<RevisionResponse>(`/api/comics/${comicId}/revise-panel`, {
     method: "POST",
-    body: JSON.stringify({ panel_id: panelId, feedback })
+    body: JSON.stringify({ panel_id: panelId, feedback, summary, text })
   });
 }

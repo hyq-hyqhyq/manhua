@@ -27,6 +27,15 @@ export default function PanelGrid({ panels, selectedPanelId, onSelect }: Props) 
             <div className="panel-body">
               <strong>Panel {panel.panel_id}</strong>
               <p>{panel.summary}</p>
+              {panel.text.length > 0 ? (
+                <ul className="panel-text-list compact">
+                  {panel.text.map((item, index) => (
+                    <li key={`${item.type}-${index}`}>
+                      [{item.type}]{item.speaker ? `[${item.speaker}]` : ""} {item.content}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </div>
             <ReferenceSheetViewer path={panel.reference_sheet_path} panelId={panel.panel_id} />
           </button>

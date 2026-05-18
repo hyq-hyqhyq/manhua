@@ -25,7 +25,7 @@ def storyboard_prompt(
         "style_prompt": style_prompt,
     }
 
-    return f"""
+    return f'''
 You are the Storyboard Planner for a multi-panel comic generation system.
 
 Your job:
@@ -48,7 +48,15 @@ Output JSON shape:
     {{
       "panel_id": 1,
       "summary": "visual description of this panel",
-      "entities_used": ["entity_id"]
+      "entities_used": ["entity_id"],
+      "text": [
+        {{
+          "type": "speech|thought|caption|sfx",
+          "speaker": "entity_id or null",
+          "content": "short comic text",
+          "position": "top_left|top_center|top_right|middle_left|middle_right|bottom_left|bottom_center|bottom_right"
+        }}
+      ]
     }}
   ]
 }}
@@ -71,8 +79,13 @@ Hard rules:
 - Keep continuity across panels.
 - Distribute the story naturally across exactly {panel_count} panels.
 - If the user prompt is vague, invent a simple coherent comic story, but keep it consistent.
-- Do not include dialogue text unless it is visually necessary; avoid readable text in images.
-""".strip()
+- Each panel may contain 0 to 2 text items.
+- Keep text short and visually manageable.
+- speech and thought should be short dialogue-like text.
+- caption should be short narration or scene-setting text.
+- sfx should be very short sound-effect text.
+- Do not generate long paragraphs.
+'''.strip()
 
 
 def reference_selection_prompt(
@@ -90,7 +103,7 @@ def reference_selection_prompt(
         "entity_pool_summary": entity_pool_summary,
     }
 
-    return f"""
+    return f'''
 You are the Reference Selector for an Entity-Pool-based comic generation system.
 
 Context:
@@ -123,7 +136,7 @@ Hard rules:
 - If many refs are relevant, choose at most 3: one identity anchor and up to two context-relevant refs.
 - Do not select too many similar refs.
 - Do not hallucinate ref_id values.
-""".strip()
+'''.strip()
 
 
 def revision_prompt(
@@ -139,7 +152,7 @@ def revision_prompt(
         "selected_panel_id": panel_id,
     }
 
-    return f"""
+    return f'''
 You are the Revision Planner for an interactive multi-panel comic system.
 
 Your job:
@@ -156,7 +169,15 @@ Output JSON shape:
   "panel_revisions": [
     {{
       "panel_id": 1,
-      "new_summary": "updated visual panel summary"
+      "new_summary": "updated visual panel summary",
+      "new_text": [
+        {{
+          "type": "speech|thought|caption|sfx",
+          "speaker": "entity_id or null",
+          "content": "short comic text",
+          "position": "top_left|top_center|top_right|middle_left|middle_right|bottom_left|bottom_center|bottom_right"
+        }}
+      ]
     }}
   ]
 }}
@@ -172,10 +193,13 @@ Hard rules:
 - affected_panels must contain valid panel_id values from the storyboard.
 - panel_revisions must contain exactly one item for each affected panel.
 - Each new_summary must be a complete visual description for image generation.
+- Each new_text must be a complete replacement text array for that panel.
 - Preserve story continuity unless the feedback explicitly asks to change the story.
 - Preserve existing entities unless the feedback explicitly adds or removes an entity.
 - Do not rewrite unaffected panels.
 - Do not change style or layout.
+- Each revised panel may contain 0 to 2 text items.
+- Keep text short and visually manageable.
 
 Global revision rules:
 - If revision_type is "global", choose only the panels that actually need regeneration.
@@ -185,11 +209,11 @@ Global revision rules:
 Panel revision rules:
 - If revision_type is "panel", affected_panels must contain only selected_panel_id.
 - If revision_type is "panel", regenerate_mode must be "selected_only".
-- Only rewrite the selected panel summary.
+- Only rewrite the selected panel summary and selected panel text.
 - Keep the revised panel consistent with neighboring panels.
 
 User feedback should be followed directly, but do not add unnecessary changes.
-""".strip()
+'''.strip()
 
 
 def ref_note_prompt(panel_summary: str, entity: dict) -> str:
@@ -198,7 +222,7 @@ def ref_note_prompt(panel_summary: str, entity: dict) -> str:
         "panel_summary": panel_summary,
     }
 
-    return f"""
+    return f'''
 You are writing a short searchable appearance note for one entity cut out from a generated comic panel.
 
 Purpose:
@@ -240,7 +264,7 @@ Rules:
 - No full sentence.
 - No period.
 - Do not mention entity_id unless necessary.
-""".strip()
+'''.strip()
 
 
 def panel_image_prompt(
@@ -252,10 +276,11 @@ def panel_image_prompt(
         "panel_id": panel["panel_id"],
         "panel_summary": panel["summary"],
         "entities_used": entities_used,
+        "text": panel.get("text", []),
     }
 
-    return f"""
-Create one comic panel.
+    return f'''
+Create one comic panel with readable comic text.
 
 Style:
 {style_prompt}
@@ -267,7 +292,19 @@ All references in the same row show the same entity in different appearances, no
 Panel input:
 {json.dumps(payload, ensure_ascii=False, indent=2)}
 
-Requirements:
+Text rendering requirements:
+- Render all provided text exactly as written.
+- Put speech text inside speech balloons.
+- Put thought text inside thought balloons.
+- Put caption text inside caption boxes.
+- Put sfx text as stylized comic sound effects.
+- Follow the requested approximate position.
+- Make all text clear, readable, and correctly spelled.
+- Do not invent extra text.
+- Do not omit provided text.
+- Keep text balloons or caption boxes from covering important faces or key objects.
+
+Visual requirements:
 - Preserve the identity and appearance of entities from the reference sheet.
 - Use only the entities listed for this panel as main subjects.
 - Do not create extra main characters.
@@ -275,6 +312,5 @@ Requirements:
 - Keep the visual style consistent with the whole comic.
 - Make the panel composition clear and readable.
 - Follow the panel summary closely.
-- Do not include readable text unless explicitly requested.
 - The output should be one clean comic panel.
-""".strip()
+'''.strip()

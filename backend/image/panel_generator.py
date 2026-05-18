@@ -23,6 +23,7 @@ def generate_panel_image(
     style: str,
     entities_used: list[str],
     selected_refs: dict[str, list[dict]],
+    text_items: list[dict] | None = None,
 ) -> None:
     background, ink, accent = STYLE_PALETTES.get(style, STYLE_PALETTES["color_webtoon"])
     width, height = 768, 768
@@ -51,6 +52,26 @@ def generate_panel_image(
     for line in summary_lines[:7]:
         draw.text((42, y), safe_text(line), fill=ink, font=font)
         y += 18
+
+    if text_items:
+        text_y = 242
+        for item in text_items[:2]:
+            label = item.get("type", "text")
+            speaker = item.get("speaker")
+            content = item.get("content", "")
+            prefix = f"[{label}]"
+            if speaker:
+                prefix += f"[{speaker}]"
+            line = safe_text(f"{prefix} {content}")
+            draw.rounded_rectangle(
+                (44, text_y, width - 44, text_y + 38),
+                radius=14,
+                fill=(255, 255, 255),
+                outline=ink,
+                width=2,
+            )
+            draw.text((62, text_y + 12), line, fill=ink, font=font)
+            text_y += 48
 
     ref_y = height - 92
     draw.rectangle((36, ref_y - 16, width - 36, height - 36), outline=ink, width=2)

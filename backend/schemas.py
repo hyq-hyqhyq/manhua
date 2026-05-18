@@ -23,8 +23,31 @@ class RevisionRequest(BaseModel):
     feedback: str = Field(..., min_length=1)
 
 
-class PanelRevisionRequest(RevisionRequest):
+TextType = Literal["speech", "thought", "caption", "sfx"]
+TextPosition = Literal[
+    "top_left",
+    "top_center",
+    "top_right",
+    "middle_left",
+    "middle_right",
+    "bottom_left",
+    "bottom_center",
+    "bottom_right",
+]
+
+
+class PanelTextItem(BaseModel):
+    type: TextType
+    speaker: str | None = None
+    content: str = Field(..., min_length=1)
+    position: TextPosition
+
+
+class PanelRevisionRequest(BaseModel):
     panel_id: int = Field(..., ge=1)
+    feedback: str = ""
+    summary: str | None = None
+    text: list[PanelTextItem] | None = None
 
 
 class ComicCreateResponse(BaseModel):

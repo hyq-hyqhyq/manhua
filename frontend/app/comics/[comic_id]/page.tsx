@@ -14,7 +14,7 @@ import {
   reviseComicGlobal,
   reviseComicPanel
 } from "@/lib/api";
-import type { ComicResult, ComicStatus, Panel, RevisionPlan } from "@/lib/types";
+import type { ComicResult, ComicStatus, Panel, PanelTextItem, RevisionPlan } from "@/lib/types";
 
 export default function ComicResultPage() {
   const params = useParams();
@@ -81,14 +81,19 @@ export default function ComicResultPage() {
     }
   }
 
-  async function handlePanelRevision(panelId: number, feedback: string) {
+  async function handlePanelRevision(
+    panelId: number,
+    feedback: string,
+    summary: string,
+    text: PanelTextItem[]
+  ) {
     if (!comicId) {
       return;
     }
     setAction("panel");
     setError(null);
     try {
-      const response = await reviseComicPanel(comicId, panelId, feedback);
+      const response = await reviseComicPanel(comicId, panelId, feedback, summary, text);
       setRevisionPlan(response.revision_plan);
       await loadComic();
     } catch (err) {
@@ -144,6 +149,7 @@ export default function ComicResultPage() {
               />
               <PanelEditor
                 panel={selectedPanel}
+                entities={comic.storyboard.entities}
                 disabled={action !== null}
                 loading={action === "panel"}
                 onRegenerate={handlePanelRevision}

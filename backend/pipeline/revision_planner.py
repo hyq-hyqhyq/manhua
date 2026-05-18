@@ -12,6 +12,7 @@ class MockRevisionPlanner:
                     {
                         "panel_id": panel["panel_id"],
                         "new_summary": self._with_feedback(panel["summary"], feedback),
+                        "new_text": self._with_text_feedback(panel.get("text", []), feedback),
                     }
                 )
 
@@ -38,6 +39,7 @@ class MockRevisionPlanner:
                 {
                     "panel_id": panel_id,
                     "new_summary": self._with_feedback(panel["summary"], feedback),
+                    "new_text": self._with_text_feedback(panel.get("text", []), feedback),
                 }
             ],
         }
@@ -47,3 +49,19 @@ class MockRevisionPlanner:
         if len(cleaned) > 110:
             cleaned = cleaned[:107].rstrip() + "..."
         return f"{summary} Revision note: {cleaned}"
+
+    def _with_text_feedback(self, text_items: list, feedback: str) -> list:
+        if isinstance(text_items, list) and text_items:
+            return text_items[:2]
+
+        cleaned = " ".join(feedback.split())
+        if len(cleaned) > 16:
+            cleaned = cleaned[:16].rstrip()
+        return [
+            {
+                "type": "caption",
+                "speaker": None,
+                "content": cleaned or "气氛改变。",
+                "position": "top_left",
+            }
+        ]

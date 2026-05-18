@@ -85,8 +85,10 @@ class MockImageProvider(ImageProvider):
         output_path: Path,
     ) -> None:
         panel_id = _panel_id_from_path(output_path)
+        payload = _extract_panel_input(panel_prompt) or {}
         summary = _extract_current_panel(panel_prompt)
         entities_used = _extract_entities(panel_prompt)
+        text_items = payload.get("text", []) if isinstance(payload.get("text", []), list) else []
         generate_panel_image(
             path=output_path,
             panel_id=panel_id,
@@ -94,6 +96,7 @@ class MockImageProvider(ImageProvider):
             style="mock",
             entities_used=entities_used,
             selected_refs={entity_id: [] for entity_id in entities_used},
+            text_items=text_items,
         )
 
 
@@ -156,7 +159,12 @@ def _extract_panel_input(panel_prompt: str) -> dict | None:
     marker = "Panel input:"
     if marker not in panel_prompt:
         return None
-    after = panel_prompt.split(marker, 1)[1].split("Requirements:", 1)[0].strip()
+    after = panel_prompt.split(marker, 1)[1]
+    for boundary in ("Text rendering requirements:", "Visual requirements:", "Requirements:"):
+        if boundary in after:
+            after = after.split(boundary, 1)[0]
+            break
+    after = after.strip()
     try:
         return json.loads(after)
     except json.JSONDecodeError:

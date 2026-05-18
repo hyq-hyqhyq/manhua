@@ -24,6 +24,7 @@ body {
 
 button,
 textarea,
+input,
 select {
   font: inherit;
 }
@@ -116,6 +117,7 @@ h3 {
 }
 
 textarea,
+input,
 select {
   width: 100%;
   border: 1px solid var(--line);
@@ -127,6 +129,7 @@ select {
 }
 
 textarea:focus,
+input:focus,
 select:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(36, 107, 100, 0.15);
@@ -155,6 +158,20 @@ select:focus {
 .secondary-button {
   width: fit-content;
   background: var(--accent-strong);
+}
+
+.small-button {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf8;
+  color: var(--accent-strong);
+  padding: 0 12px;
+  font-weight: 800;
+}
+
+.small-button.danger {
+  color: var(--warning);
 }
 
 .primary-button:hover,
@@ -299,6 +316,21 @@ select:focus {
   line-height: 1.45;
 }
 
+.panel-text-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ink);
+}
+
+.panel-text-list.compact {
+  font-size: 0.86rem;
+}
+
+.panel-text-list li {
+  margin: 2px 0;
+  overflow-wrap: anywhere;
+}
+
 .reference-sheet {
   display: grid;
   gap: 8px;
@@ -323,6 +355,33 @@ select:focus {
 .editor-box textarea {
   min-height: 108px;
   resize: vertical;
+}
+
+.panel-text-editor {
+  display: grid;
+  gap: 10px;
+}
+
+.inline-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.text-item-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 0.9fr) minmax(0, 1.2fr);
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fffdf8;
+}
+
+.text-item-editor input,
+.text-item-editor .small-button {
+  grid-column: span 3;
 }
 
 .entity-sidebar {
@@ -465,5 +524,14 @@ select:focus {
 
   .status-box {
     min-width: 0;
+  }
+
+  .text-item-editor {
+    grid-template-columns: 1fr;
+  }
+
+  .text-item-editor input,
+  .text-item-editor .small-button {
+    grid-column: auto;
   }
 }
