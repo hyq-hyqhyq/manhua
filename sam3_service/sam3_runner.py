@@ -67,8 +67,8 @@ class SAM31Runner:
         checkpoint_path = settings.checkpoint_path or None
         load_from_hf = checkpoint_path is None
 
-        if settings.version == "sam3.1" and checkpoint_path is None:
-            checkpoint_path = download_ckpt_from_hf(version="sam3.1")
+        if checkpoint_path is None and settings.image_version != "sam3":
+            checkpoint_path = download_ckpt_from_hf(version=settings.image_version)
             load_from_hf = False
 
         try:
@@ -78,7 +78,7 @@ class SAM31Runner:
                 device=settings.device,
                 compile=settings.compile_model,
             )
-            self._loaded_version = settings.version
+            self._loaded_version = settings.image_version
         except Exception:
             if settings.version != "sam3.1" or not settings.allow_sam3_fallback:
                 raise

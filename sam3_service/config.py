@@ -35,6 +35,7 @@ class Settings:
     device: str = os.getenv("SAM3_DEVICE", "cuda")
     dtype: str = os.getenv("SAM3_DTYPE", "bfloat16")
     version: str = os.getenv("SAM3_VERSION", "sam3.1")
+    image_version: str = os.getenv("SAM3_IMAGE_VERSION", "sam3")
     checkpoint_path: str = os.getenv("SAM3_CHECKPOINT_PATH", "")
     prompt_mode: str = os.getenv("SAM3_PROMPT_MODE", "combined")
     score_threshold: float = env_float("SAM3_SCORE_THRESHOLD", 0.15)
