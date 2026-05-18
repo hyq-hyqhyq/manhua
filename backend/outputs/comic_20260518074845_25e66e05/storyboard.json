@@ -1,0 +1,60 @@
+{
+  "style": "black_white_manga",
+  "layout": "2x2",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "teenage boy with slim build, short dark hair, wearing a blue hooded raincoat and dark pants, wet from rain"
+    },
+    {
+      "entity_id": "cat",
+      "description": "small gray cat with sleek body, bright eyes, pointed ears, wet fur, expressive face"
+    },
+    {
+      "entity_id": "street",
+      "description": "quiet city street at night in heavy rain, puddles, streetlights, dark building silhouettes"
+    },
+    {
+      "entity_id": "speech",
+      "description": "manga speech bubble used to show the gray cat speaking, no readable text"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "Wide establishing shot of the rainy night street, streetlights reflected in puddles, the boy in a hooded raincoat walking alone through the downpour.",
+      "entities_used": [
+        "boy",
+        "street"
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "Medium shot as the boy stops beside a puddle, noticing the small gray cat sitting under a narrow awning, both figures framed by diagonal rain lines.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "street"
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "Close-up dramatic composition: the gray cat looks up with bright eyes and an open mouth, a blank speech bubble above it, while the startled boy leans back in surprise.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "speech",
+        "street"
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "Final panel with the boy crouching beside the gray cat under the awning, their reflections visible in the wet pavement, the rain continuing around them with a mysterious quiet mood.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "street"
+      ]
+    }
+  ]
+}

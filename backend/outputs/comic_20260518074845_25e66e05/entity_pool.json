@@ -1,0 +1,118 @@
+{
+  "boy": {
+    "description": "teenage boy with slim build, short dark hair, wearing a blue hooded raincoat and dark pants, wet from rain",
+    "refs": [
+      {
+        "ref_id": "boy_ref_000",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/boy/boy_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "boy_ref_001",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/boy/boy_ref_001.png",
+        "source": "panel_1",
+        "note": "full body, walking alone, wet blue hooded raincoat"
+      },
+      {
+        "ref_id": "boy_ref_002",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/boy/boy_ref_002.png",
+        "source": "panel_2",
+        "note": "medium shot, wet blue raincoat, stopping by puddle"
+      },
+      {
+        "ref_id": "boy_ref_003",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/boy/boy_ref_003.png",
+        "source": "panel_3",
+        "note": "close-up, leaning back startled, wet blue hooded raincoat"
+      },
+      {
+        "ref_id": "boy_ref_004",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/boy/boy_ref_004.png",
+        "source": "panel_4",
+        "note": "crouching, wet blue hooded raincoat, quiet expression"
+      }
+    ]
+  },
+  "cat": {
+    "description": "small gray cat with sleek body, bright eyes, pointed ears, wet fur, expressive face",
+    "refs": [
+      {
+        "ref_id": "cat_ref_000",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/cat/cat_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "cat_ref_001",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/cat/cat_ref_001.png",
+        "source": "panel_2",
+        "note": "medium shot, sitting under awning, wet fur, expressive eyes"
+      },
+      {
+        "ref_id": "cat_ref_002",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/cat/cat_ref_002.png",
+        "source": "panel_3",
+        "note": "close-up, wet fur, looking up, open mouth, bright eyes"
+      },
+      {
+        "ref_id": "cat_ref_003",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/cat/cat_ref_003.png",
+        "source": "panel_4",
+        "note": "small wet gray cat, crouched, bright-eyed expressive face"
+      }
+    ]
+  },
+  "street": {
+    "description": "quiet city street at night in heavy rain, puddles, streetlights, dark building silhouettes",
+    "refs": [
+      {
+        "ref_id": "street_ref_000",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/street/street_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "street_ref_001",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/street/street_ref_001.png",
+        "source": "panel_1",
+        "note": "wide shot, rainy night street with puddle reflections"
+      },
+      {
+        "ref_id": "street_ref_002",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/street/street_ref_002.png",
+        "source": "panel_2",
+        "note": "medium shot, rainy night street with puddles and streetlights"
+      },
+      {
+        "ref_id": "street_ref_003",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/street/street_ref_003.png",
+        "source": "panel_3",
+        "note": "night street, heavy rain, puddles, glowing streetlights"
+      },
+      {
+        "ref_id": "street_ref_004",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/street/street_ref_004.png",
+        "source": "panel_4",
+        "note": "wide night street view, heavy rain, puddle reflections, dark silhouettes"
+      }
+    ]
+  },
+  "speech": {
+    "description": "manga speech bubble used to show the gray cat speaking, no readable text",
+    "refs": [
+      {
+        "ref_id": "speech_ref_000",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/speech/speech_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "speech_ref_001",
+        "rgba_path": "/outputs/comic_20260518074845_25e66e05/entity_pool/speech/speech_ref_001.png",
+        "source": "panel_3",
+        "note": "blank manga speech bubble above speaking cat, close-up"
+      }
+    ]
+  }
+}
