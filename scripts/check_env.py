@@ -84,7 +84,7 @@ def check_imports(label: str, modules: list[str]) -> int:
 
 def check_project_imports() -> int:
     failures = 0
-    for label, module in [
+    for label, module, path in [
         ("backend app", "main", BACKEND),
         ("comic pipeline", "pipeline.comic_pipeline", BACKEND),
         ("sam3 service app", "app", SAM3_SERVICE),
