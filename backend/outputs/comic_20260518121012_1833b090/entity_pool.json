@@ -1,0 +1,231 @@
+{
+  "boy": {
+    "description": "teenage boy, slim build, wearing a blue hooded raincoat, dark pants, wet sneakers, cautious eyes",
+    "refs": [
+      {
+        "ref_id": "boy_ref_000",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "boy_ref_001",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_001.png",
+        "source": "panel_1",
+        "note": "full body, blue hooded raincoat, walking cautiously in heavy rain"
+      },
+      {
+        "ref_id": "boy_ref_002",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_002.png",
+        "source": "panel_2",
+        "note": "rear medium shot, blue raincoat hood, paused in rain"
+      },
+      {
+        "ref_id": "boy_ref_003",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_003.png",
+        "source": "panel_4",
+        "note": "crouching, lifting box edge, surprised eyes, blue hooded raincoat"
+      },
+      {
+        "ref_id": "boy_ref_004",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_004.png",
+        "source": "panel_6",
+        "note": "half-body recoiling, wide-eyed, blue hooded raincoat wet sneakers"
+      },
+      {
+        "ref_id": "boy_ref_005",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_005.png",
+        "source": "panel_7",
+        "note": "wet blue hooded raincoat, cautious expression, standing in rain"
+      },
+      {
+        "ref_id": "boy_ref_006",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_006.png",
+        "source": "panel_8",
+        "note": "full body, clutching blue raincoat hood, nervous expression"
+      },
+      {
+        "ref_id": "boy_ref_007",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/boy/boy_ref_007.png",
+        "source": "panel_9",
+        "note": "full body, cautious stance, blue raincoat, facing dark alley"
+      }
+    ]
+  },
+  "cat": {
+    "description": "small gray cat, short fur, bright eyes, thin tail, expressive face, able to speak",
+    "refs": [
+      {
+        "ref_id": "cat_ref_000",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "cat_ref_001",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_001.png",
+        "source": "panel_3",
+        "note": "low angle close-up, bright eyes peering from dark box"
+      },
+      {
+        "ref_id": "cat_ref_002",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_002.png",
+        "source": "panel_4",
+        "note": "inside box, looking up calmly, bright eyes"
+      },
+      {
+        "ref_id": "cat_ref_003",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_003.png",
+        "source": "panel_5",
+        "note": "close-up, sitting upright, mouth open speaking, rain streaks behind"
+      },
+      {
+        "ref_id": "cat_ref_004",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_004.png",
+        "source": "panel_6",
+        "note": "small gray cat sitting in box, composed expression"
+      },
+      {
+        "ref_id": "cat_ref_005",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_005.png",
+        "source": "panel_7",
+        "note": "full body, stepping from box into puddle, serious expression"
+      },
+      {
+        "ref_id": "cat_ref_006",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_006.png",
+        "source": "panel_8",
+        "note": "full body, walking ahead on wet street, tail raised"
+      },
+      {
+        "ref_id": "cat_ref_007",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/cat/cat_ref_007.png",
+        "source": "panel_9",
+        "note": "full-body, beside boy, alert expression, facing dark rainy alley"
+      }
+    ]
+  },
+  "street": {
+    "description": "rainy night city street, wet pavement, puddles, narrow sidewalks, dim shop fronts",
+    "refs": [
+      {
+        "ref_id": "street_ref_000",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/street/street_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "street_ref_001",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/street/street_ref_001.png",
+        "source": "panel_1",
+        "note": "wide establishing shot, rainy night street with wet reflective pavement"
+      },
+      {
+        "ref_id": "street_ref_002",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/street/street_ref_002.png",
+        "source": "panel_2",
+        "note": "medium rear view, rainy wet street with puddles and dim shopfronts"
+      },
+      {
+        "ref_id": "street_ref_003",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/street/street_ref_003.png",
+        "source": "panel_5",
+        "note": "rainy night street, wet pavement, dim shop fronts"
+      },
+      {
+        "ref_id": "street_ref_004",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/street/street_ref_004.png",
+        "source": "panel_7",
+        "note": "rainy night street, wet pavement, puddles, dim shop fronts"
+      },
+      {
+        "ref_id": "street_ref_005",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/street/street_ref_005.png",
+        "source": "panel_8",
+        "note": "rainy night street, wet pavement and puddles, dim shop fronts"
+      },
+      {
+        "ref_id": "street_ref_006",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/street/street_ref_006.png",
+        "source": "panel_9",
+        "note": "wide shot, rainy street, wet pavement, dark alley ahead"
+      }
+    ]
+  },
+  "lamp": {
+    "description": "old streetlamp with a round glowing bulb, casting light through heavy rain",
+    "refs": [
+      {
+        "ref_id": "lamp_ref_000",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/lamp/lamp_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "lamp_ref_001",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/lamp/lamp_ref_001.png",
+        "source": "panel_2",
+        "note": "old streetlamp, round glowing bulb, heavy rain illumination"
+      },
+      {
+        "ref_id": "lamp_ref_002",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/lamp/lamp_ref_002.png",
+        "source": "panel_3",
+        "note": "low angle close-up, round glowing bulb in heavy rain"
+      },
+      {
+        "ref_id": "lamp_ref_003",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/lamp/lamp_ref_003.png",
+        "source": "panel_7",
+        "note": "old streetlamp, glowing round bulb, heavy rain light"
+      },
+      {
+        "ref_id": "lamp_ref_004",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/lamp/lamp_ref_004.png",
+        "source": "panel_9",
+        "note": "distant old streetlamp, round glowing bulb, lit in heavy rain"
+      }
+    ]
+  },
+  "box": {
+    "description": "damp cardboard box under shelter, torn edges, partly collapsed",
+    "refs": [
+      {
+        "ref_id": "box_ref_000",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/box/box_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "box_ref_001",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/box/box_ref_001.png",
+        "source": "panel_3",
+        "note": "low-angle close-up, damp torn cardboard box partly collapsed"
+      },
+      {
+        "ref_id": "box_ref_002",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/box/box_ref_002.png",
+        "source": "panel_4",
+        "note": "damp torn cardboard box, partly collapsed under shelter"
+      },
+      {
+        "ref_id": "box_ref_003",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/box/box_ref_003.png",
+        "source": "panel_5",
+        "note": "close-up damp torn cardboard box, partly collapsed under shelter"
+      },
+      {
+        "ref_id": "box_ref_004",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/box/box_ref_004.png",
+        "source": "panel_6",
+        "note": "damp torn cardboard box, partly collapsed under shelter"
+      },
+      {
+        "ref_id": "box_ref_005",
+        "rgba_path": "/outputs/comic_20260518121012_1833b090/entity_pool/box/box_ref_005.png",
+        "source": "panel_7",
+        "note": "damp collapsed box, torn edges, under shelter"
+      }
+    ]
+  }
+}

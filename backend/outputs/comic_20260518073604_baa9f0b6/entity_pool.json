@@ -1,0 +1,35 @@
+{
+  "boy": {
+    "description": "teenage boy, slim build, wearing a blue hooded raincoat, dark pants, wet sneakers, worried eyes visible under hood",
+    "refs": [
+      {
+        "ref_id": "boy_ref_000",
+        "rgba_path": "/outputs/comic_20260518073604_baa9f0b6/entity_pool/boy/boy_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      }
+    ]
+  },
+  "cat": {
+    "description": "small gray cat with sleek fur, bright eyes, pointed ears, long tail, expressive face",
+    "refs": [
+      {
+        "ref_id": "cat_ref_000",
+        "rgba_path": "/outputs/comic_20260518073604_baa9f0b6/entity_pool/cat/cat_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      }
+    ]
+  },
+  "street": {
+    "description": "rainy city street at night, wet pavement, puddles, dim streetlights, narrow alley edges",
+    "refs": [
+      {
+        "ref_id": "street_ref_000",
+        "rgba_path": "/outputs/comic_20260518073604_baa9f0b6/entity_pool/street/street_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      }
+    ]
+  }
+}

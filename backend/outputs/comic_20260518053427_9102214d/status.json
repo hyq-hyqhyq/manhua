@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "current_panel": 0,
+  "total_panels": 4,
+  "message": "SAM3 segmentation failed: SAM3 segmentation failed for boy: SAM3 service returned 500: {\"detail\":\"mat1 and mat2 must have the same dtype, but got BFloat16 and Float\"}",
+  "warnings": [],
+  "provider_status": {
+    "mode": "real_with_fallback",
+    "storyboard_llm": "qwen",
+    "reference_selector": "pending",
+    "revision_planner": "pending",
+    "ref_note_llm": "pending",
+    "image": "gpt_image",
+    "segment": "pending"
+  }
+}

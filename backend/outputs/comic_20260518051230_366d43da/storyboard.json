@@ -1,0 +1,47 @@
+{
+  "style": "black_white_manga",
+  "layout": "2x2",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "少年，穿着蓝色雨衣"
+    },
+    {
+      "entity_id": "cat",
+      "description": "会说话的灰猫"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "雨夜街道，少年独自走在倾盆大雨中，雨衣兜帽遮住半张脸。",
+      "entities_used": [
+        "boy"
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "少年停下脚步，低头看向路边水洼旁，一只灰猫正抬头注视着他。",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "灰猫张开嘴说话，少年面露震惊，画面带有夸张的漫画式速度线。",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "少年蹲下身与猫平视，雨滴在黑白网点中落下，两者在昏暗路灯下对视。",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    }
+  ]
+}

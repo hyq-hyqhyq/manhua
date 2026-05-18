@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "current_panel": 9,
+  "total_panels": 9,
+  "message": "Completed",
+  "warnings": [],
+  "provider_status": {
+    "mode": "real_with_fallback",
+    "storyboard_llm": "openai_text",
+    "reference_selector": "openai_text",
+    "revision_planner": "pending",
+    "ref_note_llm": "openai_text",
+    "image": "gpt_image",
+    "segment": "sam3"
+  }
+}

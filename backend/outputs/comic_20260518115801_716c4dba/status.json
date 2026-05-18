@@ -1,0 +1,16 @@
+{
+  "status": "failed",
+  "current_panel": 0,
+  "total_panels": 9,
+  "message": "GPT Image anchor generation failed: GPT Image request failed: The read operation timed out",
+  "warnings": [],
+  "provider_status": {
+    "mode": "real_with_fallback",
+    "storyboard_llm": "openai_text",
+    "reference_selector": "pending",
+    "revision_planner": "pending",
+    "ref_note_llm": "pending",
+    "image": "pending",
+    "segment": "pending"
+  }
+}

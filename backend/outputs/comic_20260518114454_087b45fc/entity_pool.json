@@ -1,0 +1,58 @@
+{
+  "boy": {
+    "description": "teenage boy with slim build, wearing a blue hooded raincoat, dark shorts, sneakers, wet bangs visible under hood",
+    "refs": [
+      {
+        "ref_id": "boy_ref_000",
+        "rgba_path": "/outputs/comic_20260518114454_087b45fc/entity_pool/boy/boy_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      }
+    ]
+  },
+  "cat": {
+    "description": "small gray cat with short fur, bright eyes, striped tail, sharp ears, expressive face",
+    "refs": [
+      {
+        "ref_id": "cat_ref_000",
+        "rgba_path": "/outputs/comic_20260518114454_087b45fc/entity_pool/cat/cat_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      }
+    ]
+  },
+  "streetlamp": {
+    "description": "old metal streetlamp glowing in the rainy night, casting a circular pool of light",
+    "refs": [
+      {
+        "ref_id": "streetlamp_ref_000",
+        "rgba_path": "/outputs/comic_20260518114454_087b45fc/entity_pool/streetlamp/streetlamp_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "streetlamp_ref_001",
+        "rgba_path": "/outputs/comic_20260518114454_087b45fc/entity_pool/streetlamp/streetlamp_ref_001.png",
+        "source": "panel_1",
+        "note": "wide shot, old glowing streetlamp in rainy alley"
+      }
+    ]
+  },
+  "alley": {
+    "description": "narrow city alley at night with wet pavement, brick walls, puddles, distant signs, heavy rain",
+    "refs": [
+      {
+        "ref_id": "alley_ref_000",
+        "rgba_path": "/outputs/comic_20260518114454_087b45fc/entity_pool/alley/alley_ref_000.png",
+        "source": "anchor",
+        "note": "anchor appearance"
+      },
+      {
+        "ref_id": "alley_ref_001",
+        "rgba_path": "/outputs/comic_20260518114454_087b45fc/entity_pool/alley/alley_ref_001.png",
+        "source": "panel_1",
+        "note": "wide view, rainy narrow alley, wet pavement and brick walls"
+      }
+    ]
+  }
+}

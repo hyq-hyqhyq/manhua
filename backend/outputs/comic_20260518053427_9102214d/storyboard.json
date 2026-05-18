@@ -1,0 +1,47 @@
+{
+  "style": "black_white_manga",
+  "layout": "2x2",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "teenage boy with a slim build, short dark hair, wearing a hooded raincoat and dark pants"
+    },
+    {
+      "entity_id": "cat",
+      "description": "medium-sized gray cat with sleek fur, large round eyes, and a slightly upright posture"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "Wide establishing shot of a dark, rain-slicked city street at night. The boy walks alone under a glowing streetlamp, his raincoat hood pulled up against the heavy downpour.",
+      "entities_used": [
+        "boy"
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "Close-up of the boy stopping mid-step. He looks down in surprise at the cat sitting calmly on a wet concrete step, raindrops splashing around its paws.",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "Dynamic low-angle shot. The cat opens its mouth as if speaking, with dramatic speed lines and heavy rain streaks emphasizing the moment. The boy leans forward, eyes wide with shock.",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "Medium shot of the boy kneeling to the cat's level, a curious smile forming on his face. The cat sits confidently, tail curled, as heavy rain continues to fall around them in a moody, high-contrast composition.",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "status": "failed",
+  "current_panel": 0,
+  "total_panels": 4,
+  "message": "GPT Image panel generation failed: GPT Image panel generation failed: The read operation timed out",
+  "warnings": [
+    "Qwen storyboard failed; trying OpenAI text fallback. qwen text request failed: The read operation timed out",
+    "qwen ref note failed; trying fallback. qwen text request failed: The read operation timed out"
+  ],
+  "provider_status": {
+    "mode": "real_with_fallback",
+    "storyboard_llm": "openai_text",
+    "reference_selector": "qwen",
+    "revision_planner": "pending",
+    "ref_note_llm": "qwen+openai_text",
+    "image": "gpt_image",
+    "segment": "sam3"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "style": "black_white_manga",
+  "layout": "2x2",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "teenage boy, slim build, wearing a blue hooded raincoat, dark pants, wet hair partly hidden under hood, cautious expression"
+    },
+    {
+      "entity_id": "cat",
+      "description": "small gray cat, sleek body, bright eyes, wet fur, expressive face, curled tail"
+    },
+    {
+      "entity_id": "rainy_street",
+      "description": "quiet city street at night, heavy rain, puddles reflecting streetlights, narrow sidewalk and shadowy alley entrance"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "Wide establishing shot of the rainy_street at night, heavy rain falling over empty pavement; the boy in a blue raincoat walks alone through puddles, head lowered against the storm.",
+      "entities_used": [
+        "boy",
+        "rainy_street"
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "Closer view near a dark alley entrance; the boy stops and looks down as the gray cat sits under a small awning, soaked but calm, staring directly at him.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "rainy_street"
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "Dramatic manga close-up of the cat raising its head with an expressive open mouth and a blank speech bubble shape above it; the boy recoils in surprise, rain streaking between them.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "rainy_street"
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "The boy crouches beside the cat and extends one hand gently; the cat steps closer with confident eyes, both framed by glowing puddle reflections and falling rain, creating a mysterious new companionship.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "rainy_street"
+      ]
+    }
+  ]
+}

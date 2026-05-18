@@ -1,0 +1,186 @@
+{
+  "style": "black_white_manga",
+  "layout": "3x3",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "teenage boy with slim build, short dark hair, wearing a blue hooded raincoat and dark pants"
+    },
+    {
+      "entity_id": "cat",
+      "description": "small gray cat with short fur, bright eyes, pointed ears, and a slightly fluffy tail"
+    },
+    {
+      "entity_id": "streetlamp",
+      "description": "tall old-fashioned streetlamp with a curved metal post and glowing round lamp"
+    },
+    {
+      "entity_id": "alley",
+      "description": "narrow wet city alley with brick walls, puddles, and reflective pavement"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "Wide establishing shot of a rain-soaked city alley at night, puddles rippling under the glow of a lone streetlamp, the boy walking in from the distance with hood up.",
+      "entities_used": [
+        "boy",
+        "streetlamp",
+        "alley"
+      ],
+      "text": [
+        {
+          "type": "caption",
+          "speaker": null,
+          "content": "雨夜。",
+          "position": "top_left"
+        },
+        {
+          "type": "sfx",
+          "speaker": null,
+          "content": "哗啦啦",
+          "position": "top_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "Medium shot of the boy trudging through the alley, rain streaming from his blue hooded raincoat, shoulders slightly hunched against the cold.",
+      "entities_used": [
+        "boy",
+        "alley"
+      ],
+      "text": [
+        {
+          "type": "thought",
+          "speaker": "boy",
+          "content": "快点回家吧。",
+          "position": "top_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "Low-angle close shot of a gray cat sitting beside a puddle beneath the streetlamp, its reflection shimmering in the rainwater as it watches the boy.",
+      "entities_used": [
+        "cat",
+        "streetlamp",
+        "alley"
+      ],
+      "text": [
+        {
+          "type": "sfx",
+          "speaker": null,
+          "content": "滴答",
+          "position": "bottom_left"
+        }
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "The boy stops mid-step and looks down in surprise; the gray cat sits calmly in front of him, rain falling between them.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "alley"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "cat",
+          "content": "晚上好，少年。",
+          "position": "middle_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 5,
+      "summary": "Close-up of the boy's wide eyes under the rain hood, with sharp manga speed lines emphasizing his shock.",
+      "entities_used": [
+        "boy"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "boy",
+          "content": "猫说话了？！",
+          "position": "top_left"
+        }
+      ]
+    },
+    {
+      "panel_id": 6,
+      "summary": "Close-up of the gray cat lifting one paw with a dignified expression, tail curled neatly around its feet under the streetlamp glow.",
+      "entities_used": [
+        "cat",
+        "streetlamp"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "cat",
+          "content": "别大惊小怪。",
+          "position": "top_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 7,
+      "summary": "Two-shot in the wet alley: the boy crouches to the cat's level, curious now, while rain splashes around them and reflections stretch across the pavement.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "alley"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "boy",
+          "content": "你是谁？",
+          "position": "top_left"
+        },
+        {
+          "type": "speech",
+          "speaker": "cat",
+          "content": "一个迷路的旅人。",
+          "position": "bottom_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 8,
+      "summary": "The cat turns and begins walking deeper into the alley, glancing back over its shoulder; the boy hesitates, framed by rain and shadow.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "alley"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "cat",
+          "content": "要听个秘密吗？",
+          "position": "top_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 9,
+      "summary": "Final wide shot: the boy follows the gray cat into the rain-dark alley, both becoming small silhouettes beneath the streetlamp's fading light.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "streetlamp",
+        "alley"
+      ],
+      "text": [
+        {
+          "type": "caption",
+          "speaker": null,
+          "content": "奇妙的夜晚开始了。",
+          "position": "bottom_center"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,201 @@
+{
+  "style": "black_white_manga",
+  "layout": "3x3",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "teenage boy, slim build, wearing a blue hooded raincoat, dark pants, wet sneakers, cautious eyes"
+    },
+    {
+      "entity_id": "cat",
+      "description": "small gray cat, short fur, bright eyes, thin tail, expressive face, able to speak"
+    },
+    {
+      "entity_id": "street",
+      "description": "rainy night city street, wet pavement, puddles, narrow sidewalks, dim shop fronts"
+    },
+    {
+      "entity_id": "lamp",
+      "description": "old streetlamp with a round glowing bulb, casting light through heavy rain"
+    },
+    {
+      "entity_id": "box",
+      "description": "damp cardboard box under shelter, torn edges, partly collapsed"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "Wide establishing shot of a rainy night city street, wet pavement reflecting lights, the boy in a blue hooded raincoat walking alone through heavy rain.",
+      "entities_used": [
+        "boy",
+        "street"
+      ],
+      "text": [
+        {
+          "type": "caption",
+          "speaker": null,
+          "content": "雨夜，街上空无一人。",
+          "position": "top_left"
+        },
+        {
+          "type": "sfx",
+          "speaker": null,
+          "content": "哗啦啦",
+          "position": "top_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "Medium shot from behind the boy as he pauses near an old streetlamp, rain dripping from his hood, shadows stretching across puddles.",
+      "entities_used": [
+        "boy",
+        "street",
+        "lamp"
+      ],
+      "text": [
+        {
+          "type": "thought",
+          "speaker": "boy",
+          "content": "好冷……快点回家吧。",
+          "position": "bottom_left"
+        }
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "Low angle close-up of a damp cardboard box beside the streetlamp, a small gray cat's bright eyes shining from the darkness inside.",
+      "entities_used": [
+        "cat",
+        "box",
+        "lamp"
+      ],
+      "text": [
+        {
+          "type": "sfx",
+          "speaker": null,
+          "content": "沙沙",
+          "position": "middle_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "The boy crouches beside the box, lifting the edge with one hand, surprised as the gray cat looks up calmly from inside.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "box"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "boy",
+          "content": "小猫？你迷路了吗？",
+          "position": "top_left"
+        }
+      ]
+    },
+    {
+      "panel_id": 5,
+      "summary": "Close-up of the gray cat sitting upright in the box, mouth open as it speaks, rain streaks behind it like dramatic manga speed lines.",
+      "entities_used": [
+        "cat",
+        "box",
+        "street"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "cat",
+          "content": "不是。我在等你。",
+          "position": "top_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 6,
+      "summary": "Comedic shock panel: the boy recoils backward, hood slipping slightly, eyes wide, while the cat remains composed in the box.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "box"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "boy",
+          "content": "你、你会说话？！",
+          "position": "middle_left"
+        },
+        {
+          "type": "sfx",
+          "speaker": null,
+          "content": "咚！",
+          "position": "bottom_right"
+        }
+      ]
+    },
+    {
+      "panel_id": 7,
+      "summary": "The cat steps out of the box into a puddle under the streetlamp, looking up at the boy with a serious expression, rain sparkling around them.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "box",
+        "lamp",
+        "street"
+      ],
+      "text": [
+        {
+          "type": "speech",
+          "speaker": "cat",
+          "content": "跟我来，雨里有东西醒了。",
+          "position": "top_center"
+        }
+      ]
+    },
+    {
+      "panel_id": 8,
+      "summary": "Dynamic panel of the cat walking ahead along the wet street, tail raised, while the boy follows nervously, clutching his raincoat hood.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "street"
+      ],
+      "text": [
+        {
+          "type": "thought",
+          "speaker": "boy",
+          "content": "我一定是在做梦……",
+          "position": "bottom_left"
+        }
+      ]
+    },
+    {
+      "panel_id": 9,
+      "summary": "Final dramatic wide shot: boy and gray cat stand together beneath the streetlamp, facing a dark rain-filled alley beyond the street, ready to enter.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "street",
+        "lamp"
+      ],
+      "text": [
+        {
+          "type": "caption",
+          "speaker": null,
+          "content": "他们的奇怪夜晚，才刚开始。",
+          "position": "top_center"
+        },
+        {
+          "type": "sfx",
+          "speaker": null,
+          "content": "轰隆",
+          "position": "bottom_right"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "style": "black_white_manga",
+  "layout": "2x2",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "teenage boy wearing a blue raincoat"
+    },
+    {
+      "entity_id": "cat",
+      "description": "talking gray cat"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "The boy walks alone down a dark, rain-slicked street, holding his raincoat collar.",
+      "entities_used": [
+        "boy"
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "The boy stops abruptly under a flickering streetlamp, noticing a shadowy figure on a nearby wall.",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "Close-up of the gray cat sitting on the brick wall, mouth open mid-speech with dramatic manga speed lines.",
+      "entities_used": [
+        "cat"
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "The boy stares in wide-eyed shock, rain dripping from his hood as he listens to the cat.",
+      "entities_used": [
+        "boy",
+        "cat"
+      ]
+    }
+  ]
+}

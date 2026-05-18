@@ -1,0 +1,60 @@
+{
+  "style": "black_white_manga",
+  "layout": "2x2",
+  "entities": [
+    {
+      "entity_id": "boy",
+      "description": "teenage boy with slim build, wearing a blue hooded raincoat, dark pants, wet hair partly hidden under hood, cautious expression"
+    },
+    {
+      "entity_id": "cat",
+      "description": "small gray cat with sleek fur, bright eyes, pointed ears, long tail, expressive face as if speaking"
+    },
+    {
+      "entity_id": "street",
+      "description": "quiet rainy city street at night with puddles, street lamps, dark building silhouettes, reflective wet pavement"
+    },
+    {
+      "entity_id": "umbrella",
+      "description": "broken abandoned umbrella lying on wet pavement, bent ribs and torn fabric"
+    }
+  ],
+  "panels": [
+    {
+      "panel_id": 1,
+      "summary": "Wide establishing view of a rainy night street, heavy rain falling under street lamps, the boy in a hooded raincoat walking alone past puddles, moody shadows and reflections.",
+      "entities_used": [
+        "boy",
+        "street"
+      ]
+    },
+    {
+      "panel_id": 2,
+      "summary": "Medium shot near a puddle: the boy stops and looks down, noticing the small gray cat sitting beside a broken umbrella, rain beading on the cat's fur.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "street",
+        "umbrella"
+      ]
+    },
+    {
+      "panel_id": 3,
+      "summary": "Close dramatic composition: the gray cat looks up with an expressive open mouth as if speaking, while the startled boy leans back slightly, rain streaks cutting through the frame.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "street"
+      ]
+    },
+    {
+      "panel_id": 4,
+      "summary": "Final panel: the boy crouches and shelters the gray cat under his blue raincoat, both facing down the dark wet street together, mysterious but warm atmosphere.",
+      "entities_used": [
+        "boy",
+        "cat",
+        "street"
+      ]
+    }
+  ]
+}
