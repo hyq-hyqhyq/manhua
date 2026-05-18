@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from contextlib import nullcontext
 import io
 import threading
 from pathlib import Path
@@ -40,7 +41,7 @@ class SAM31Runner:
         prompt_text = self._build_prompt(entity_id, description, prompt)
         threshold = settings.score_threshold if score_threshold is None else score_threshold
 
-        with torch.inference_mode():
+        with torch.inference_mode(), self._autocast_context():
             state = self._processor.set_image(image.convert("RGB"))
             output = self._processor.set_text_prompt(state=state, prompt=prompt_text)
 
@@ -90,7 +91,17 @@ class SAM31Runner:
             self._loaded_version = "sam3"
 
         self._model = model
+        self._model.eval()
         self._processor = Sam3Processor(model)
+
+    def _autocast_context(self):
+        if not settings.device.startswith("cuda"):
+            return nullcontext()
+        if settings.dtype in {"bfloat16", "bf16"}:
+            return torch.autocast(device_type="cuda", dtype=torch.bfloat16)
+        if settings.dtype in {"float16", "fp16"}:
+            return torch.autocast(device_type="cuda", dtype=torch.float16)
+        return nullcontext()
 
     def _build_prompt(self, entity_id: str, description: str, explicit_prompt: str | None) -> str:
         if explicit_prompt and explicit_prompt.strip():

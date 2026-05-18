@@ -87,5 +87,6 @@ The service defaults to:
 ```env
 SAM3_VERSION=sam3.1
 SAM3_DEVICE=cuda
+SAM3_DTYPE=bfloat16
 SAM3_PROMPT_MODE=entity_id
 ```
