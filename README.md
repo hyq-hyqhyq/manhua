@@ -4,8 +4,7 @@ This project is an Entity Pool based interactive multi-panel comic generation sy
 
 Phase one runs fully in mock mode. Phase two adds configurable real providers while keeping the same API and mock fallback:
 
-- Qwen for lightweight text planning.
-- OpenAI-compatible text provider as fallback.
+- OpenAI-compatible GPT text provider for lightweight text planning.
 - GPT Image for anchor and panel image generation.
 - SAM 3.1 endpoint for entity segmentation.
 - Mock providers remain available through `USE_MOCK_PROVIDERS=true`.
@@ -73,9 +72,6 @@ To enable real providers:
 ```bash
 cp .env.example .env
 export USE_MOCK_PROVIDERS=false
-export QWEN_API_KEY=...
-export QWEN_BASE_URL=...
-export QWEN_MODEL=...
 export OPENAI_TEXT_API_KEY=...
 export OPENAI_TEXT_BASE_URL=...
 export OPENAI_TEXT_MODEL=...
@@ -85,7 +81,7 @@ export OPENAI_IMAGE_MODEL=...
 export SAM3_ENDPOINT=http://127.0.0.1:8100/segment
 ```
 
-If Qwen fails, the backend tries OpenAI text, then mock text. If SAM3 fails, it falls back to mock segmentation and records a warning. If GPT Image fails, it falls back to mock images only when `ALLOW_MOCK_IMAGE_FALLBACK=true`; otherwise the API returns a clear error.
+If OpenAI text fails, it falls back to mock text when `ALLOW_MOCK_TEXT_FALLBACK=true`. If SAM3 fails, it falls back to mock segmentation and records a warning when `ALLOW_MOCK_SEGMENT_FALLBACK=true`. If GPT Image fails, it falls back to mock images only when `ALLOW_MOCK_IMAGE_FALLBACK=true`; otherwise the API returns a clear error.
 
 SAM 3.1 runs as a separate service in `sam3_service/`. On the server:
 

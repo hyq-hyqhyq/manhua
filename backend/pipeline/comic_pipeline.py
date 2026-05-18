@@ -17,7 +17,6 @@ from providers.errors import ProviderError
 from providers.gpt_image_provider import GPTImageProvider
 from providers.mock_providers import MockImageProvider, MockLLMProvider, MockSegmentProvider
 from providers.openai_provider import OpenAIProvider
-from providers.qwen_provider import QwenProvider
 from providers.sam3_provider import SAM3Provider
 from render.stitcher import stitch_panels
 from storage.file_store import FileStore
@@ -29,7 +28,6 @@ class ComicPipeline:
         self.mock_llm = MockLLMProvider()
         self.mock_image_provider = MockImageProvider()
         self.mock_segment_provider = MockSegmentProvider()
-        self.qwen_provider = QwenProvider()
         self.openai_provider = OpenAIProvider()
         self.gpt_image_provider = GPTImageProvider()
         self.sam3_provider = SAM3Provider()
@@ -141,20 +139,6 @@ class ComicPipeline:
                 style,
                 panel_count,
             )
-
-        try:
-            storyboard = self.qwen_provider.generate_storyboard(
-                user_prompt,
-                layout,
-                style,
-                panel_count,
-                style_prompt,
-            )
-            storyboard = validate_storyboard(storyboard, layout, style, panel_count)
-            self._mark_provider(comic_id, "storyboard_llm", self.qwen_provider.provider_name)
-            return storyboard
-        except Exception as error:
-            self._append_warning(comic_id, f"Qwen storyboard failed; trying OpenAI text fallback. {error}")
 
         try:
             storyboard = self.openai_provider.generate_storyboard(
@@ -275,7 +259,7 @@ class ComicPipeline:
         ]
         entity_pool_summary = self._entity_pool_summary(entity_pool, panel["entities_used"])
 
-        for provider in (self.qwen_provider, self.openai_provider):
+        for provider in self._text_providers():
             try:
                 selection = provider.select_references(panel, current_entities, entity_pool_summary)
                 selected_ids = validate_reference_selection(selection, panel, entity_pool)
@@ -307,7 +291,7 @@ class ComicPipeline:
                 panel_id,
             )
 
-        for provider in (self.qwen_provider, self.openai_provider):
+        for provider in self._text_providers():
             try:
                 revision_plan = provider.plan_revision(storyboard, feedback, revision_type, panel_id)
                 revision_plan = validate_revision_plan(
@@ -341,7 +325,7 @@ class ComicPipeline:
             self._mark_provider(comic_id, "ref_note_llm", self.mock_llm.provider_name)
             return fallback_note
 
-        for provider in (self.qwen_provider, self.openai_provider):
+        for provider in self._text_providers():
             try:
                 note = provider.generate_ref_note(panel["summary"], entity)
                 note = " ".join(note.split())[:96]
@@ -560,6 +544,9 @@ class ComicPipeline:
             "image": "pending",
             "segment": "pending",
         }
+
+    def _text_providers(self) -> tuple[OpenAIProvider, ...]:
+        return (self.openai_provider,)
 
     def _status_path(self, comic_id: str) -> Path:
         return self.store.comic_dir(comic_id) / "status.json"

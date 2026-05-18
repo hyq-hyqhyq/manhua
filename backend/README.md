@@ -5,7 +5,7 @@ FastAPI backend for the interactive comic generator.
 The backend supports mock mode and real provider mode:
 
 - `USE_MOCK_PROVIDERS=true`: fully mock storyboard, images, and segmentation.
-- `USE_MOCK_PROVIDERS=false`: Qwen + GPT Image + SAM3 with fallback paths.
+- `USE_MOCK_PROVIDERS=false`: OpenAI-compatible GPT text + GPT Image + SAM3 with fallback paths.
 
 The phase-one API shape is preserved.
 
@@ -33,15 +33,14 @@ ALLOW_MOCK_IMAGE_FALLBACK=true
 ALLOW_MOCK_TEXT_FALLBACK=true
 ALLOW_MOCK_SEGMENT_FALLBACK=true
 
-QWEN_API_KEY=...
-QWEN_BASE_URL=...
-QWEN_MODEL=...
-
-OPENAI_API_KEY=...
-OPENAI_BASE_URL=...
+OPENAI_TEXT_API_KEY=...
+OPENAI_TEXT_BASE_URL=...
 OPENAI_TEXT_MODEL=...
+OPENAI_IMAGE_API_KEY=...
+OPENAI_IMAGE_BASE_URL=...
 OPENAI_IMAGE_MODEL=...
-OPENAI_IMAGE_ENDPOINT=
+OPENAI_IMAGE_EDITS_ENDPOINT=/v1/images/edits
+OPENAI_IMAGE_GENERATIONS_ENDPOINT=/v1/images/generations
 
 SAM3_ENDPOINT=https://your-sam3-endpoint.example/segment
 OUTPUT_DIR=outputs
@@ -49,7 +48,6 @@ OUTPUT_DIR=outputs
 
 Fallback behavior:
 
-- Qwen text failure: fallback to OpenAI text and record a warning.
 - OpenAI text failure: fallback to mock text when enabled.
 - GPT Image failure: clear API error unless mock image fallback is enabled.
 - SAM3 failure: fallback to mock cutout and record a warning.
